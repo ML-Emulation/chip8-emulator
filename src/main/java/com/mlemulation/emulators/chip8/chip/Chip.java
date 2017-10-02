@@ -2,6 +2,11 @@ package com.mlemulation.emulators.chip8.chip;
 
 import com.mlemulation.emulators.chip8.specs.Specs;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * This singleton class represents the current Chip's state.
  */
@@ -46,6 +51,23 @@ public class Chip {
             instance = new Chip();
         }
         return instance;
+    }
+
+    public void loadRom(String romPathString) {
+        Path romPath = Paths.get(romPathString);
+        byte[] fileByteArray;
+        try {
+            fileByteArray = Files.readAllBytes(romPath);
+            if (fileByteArray.length <= this.memory.length) {
+                System.arraycopy(fileByteArray, 0, this.memory, 0, fileByteArray.length);
+                this.romLoaded = true;
+            } else {
+                System.out.println("ROM too big to fit in memory...");
+            }
+        } catch (IOException e) {
+            System.out.println("Exception thrown while reading ROM...");
+            e.printStackTrace();
+        }
     }
 
     public ChipState getState() {
