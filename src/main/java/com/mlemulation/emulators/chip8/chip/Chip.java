@@ -22,6 +22,7 @@ public class Chip {
     public byte[] display;
     public long display_width;
     public long display_height;
+    public boolean rom_loaded;
 
     private Chip() {
         this.memory = new byte[Specs.MEMORY];
@@ -37,6 +38,7 @@ public class Chip {
         this.display = new byte[Specs.DISPLAY_SIZE];
         this.display_width = Specs.DISPLAY_WIDTH;
         this.display_height = Specs.DISPLAY_HEIGHT;
+        this.rom_loaded = false;
     }
 
     public static Chip getInstance() {
@@ -64,5 +66,6 @@ public class Chip {
         this.display = targetState.display.clone();
         this.display_width = targetState.display_width;
         this.display_height = targetState.display_height;
+        this.rom_loaded = targetState.rom_loaded;
     }
 }
