@@ -7,17 +7,17 @@ class ChipState {
 
     final byte[] memory;
     final byte[] vReg;
-    final long I;
-    final long pc;
-    final long opcode;
-    final long[] stack;
-    final long stackPtr;
-    final long delayTimer;
-    final long soundTimer;
+    final int I;
+    final int pc;
+    final int opcode;
+    final int[] stack;
+    final int stackPtr;
+    final int delayTimer;
+    final int soundTimer;
     final byte[] keys;
     final byte[] display;
-    final long displayWidth;
-    final long displayHeight;
+    final int displayWidth;
+    final int displayHeight;
     final boolean isRunning;
     final boolean isRomLoaded;
 

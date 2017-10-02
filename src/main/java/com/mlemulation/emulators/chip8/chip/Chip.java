@@ -16,17 +16,17 @@ public class Chip {
 
     public byte[] memory;
     public byte[] vReg;
-    public long I;
-    public long pc;
-    public long opcode;
-    public long[] stack;
-    public long stackPtr;
-    public long delayTimer;
-    public long soundTimer;
+    public int I;
+    public int pc;
+    public int opcode;
+    public int[] stack;
+    public int stackPtr;
+    public int delayTimer;
+    public int soundTimer;
     public byte[] keys;
     public byte[] display;
-    public long displayWidth;
-    public long displayHeight;
+    public int displayWidth;
+    public int displayHeight;
     public boolean isRunning;
     public boolean isRomLoaded;
 
@@ -35,13 +35,13 @@ public class Chip {
     private void reset() {
         this.memory = new byte[Specs.MEMORY];
         this.vReg = new byte[Specs.V_REGISTERS];
-        this.I = 0L;
-        this.pc = 0L;
-        this.opcode = 0L;
-        this.stack = new long[Specs.STACK_SIZE];
-        this.stackPtr = 0L;
-        this.delayTimer = 0L;
-        this.soundTimer = 0L;
+        this.I = 0;
+        this.pc = 0;
+        this.opcode = 0;
+        this.stack = new int[Specs.STACK_SIZE];
+        this.stackPtr = 0;
+        this.delayTimer = 0;
+        this.soundTimer = 0;
         this.keys = new byte[Specs.KEYS];
         this.display = new byte[Specs.DISPLAY_SIZE];
         this.displayWidth = Specs.DISPLAY_WIDTH;
