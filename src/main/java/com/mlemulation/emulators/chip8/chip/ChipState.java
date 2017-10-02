@@ -18,7 +18,8 @@ class ChipState {
     final byte[] display;
     final long displayWidth;
     final long displayHeight;
-    final boolean romLoaded;
+    final boolean isRunning;
+    final boolean isRomLoaded;
 
     ChipState(Chip chip) {
         this.memory = chip.memory.clone();
@@ -34,6 +35,7 @@ class ChipState {
         this.display = chip.display.clone();
         this.displayWidth = chip.displayWidth;
         this.displayHeight = chip.displayHeight;
-        this.romLoaded = chip.romLoaded;
+        this.isRunning = chip.isRunning;
+        this.isRomLoaded = chip.isRomLoaded;
     }
 }

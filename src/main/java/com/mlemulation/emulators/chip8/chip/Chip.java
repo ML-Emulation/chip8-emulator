@@ -27,7 +27,8 @@ public class Chip {
     public byte[] display;
     public long displayWidth;
     public long displayHeight;
-    public boolean romLoaded;
+    public boolean isRunning;
+    public boolean isRomLoaded;
 
     private Chip() {}
 
@@ -45,7 +46,8 @@ public class Chip {
         this.display = new byte[Specs.DISPLAY_SIZE];
         this.displayWidth = Specs.DISPLAY_WIDTH;
         this.displayHeight = Specs.DISPLAY_HEIGHT;
-        this.romLoaded = false;
+        this.isRunning = false;
+        this.isRomLoaded = false;
     }
 
     public static Chip getInstance() {
@@ -63,7 +65,8 @@ public class Chip {
             fileByteArray = Files.readAllBytes(romPath);
             if (fileByteArray.length <= this.memory.length) {
                 System.arraycopy(fileByteArray, 0, this.memory, 0, fileByteArray.length);
-                this.romLoaded = true;
+                this.isRomLoaded = true;
+                this.isRunning = true;
             } else {
                 System.out.println("ROM too big to fit in memory...");
             }
@@ -91,6 +94,7 @@ public class Chip {
         this.display = targetState.display.clone();
         this.displayWidth = targetState.displayWidth;
         this.displayHeight = targetState.displayHeight;
-        this.romLoaded = targetState.romLoaded;
+        this.isRunning = targetState.isRunning;
+        this.isRomLoaded = targetState.isRomLoaded;
     }
 }
