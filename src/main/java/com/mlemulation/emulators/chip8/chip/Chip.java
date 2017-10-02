@@ -10,35 +10,35 @@ public class Chip {
     private static Chip instance = null;
 
     public byte[] memory;
-    public byte[] v_reg;
+    public byte[] vReg;
     public long I;
     public long pc;
     public long opcode;
     public long[] stack;
-    public long stack_ptr;
-    public long delay_timer;
-    public long sound_timer;
+    public long stackPtr;
+    public long delayTimer;
+    public long soundTimer;
     public byte[] keys;
     public byte[] display;
-    public long display_width;
-    public long display_height;
-    public boolean rom_loaded;
+    public long displayWidth;
+    public long displayHeight;
+    public boolean romLoaded;
 
     private Chip() {
         this.memory = new byte[Specs.MEMORY];
-        this.v_reg = new byte[Specs.V_REGISTERS];
+        this.vReg = new byte[Specs.V_REGISTERS];
         this.I = 0L;
         this.pc = 0L;
         this.opcode = 0L;
         this.stack = new long[Specs.STACK_SIZE];
-        this.stack_ptr = 0L;
-        this.delay_timer = 0L;
-        this.sound_timer = 0L;
+        this.stackPtr = 0L;
+        this.delayTimer = 0L;
+        this.soundTimer = 0L;
         this.keys = new byte[Specs.KEYS];
         this.display = new byte[Specs.DISPLAY_SIZE];
-        this.display_width = Specs.DISPLAY_WIDTH;
-        this.display_height = Specs.DISPLAY_HEIGHT;
-        this.rom_loaded = false;
+        this.displayWidth = Specs.DISPLAY_WIDTH;
+        this.displayHeight = Specs.DISPLAY_HEIGHT;
+        this.romLoaded = false;
     }
 
     public static Chip getInstance() {
@@ -54,18 +54,18 @@ public class Chip {
 
     public void setState(ChipState targetState) {
         this.memory = targetState.memory.clone();
-        this.v_reg = targetState.v_reg.clone();
+        this.vReg = targetState.vReg.clone();
         this.I = targetState.I;
         this.pc = targetState.pc;
         this.opcode = targetState.opcode;
         this.stack = targetState.stack.clone();
-        this.stack_ptr = targetState.stack_ptr;
-        this.delay_timer = targetState.delay_timer;
-        this.sound_timer = targetState.sound_timer;
+        this.stackPtr = targetState.stackPtr;
+        this.delayTimer = targetState.delayTimer;
+        this.soundTimer = targetState.soundTimer;
         this.keys = targetState.keys.clone();
         this.display = targetState.display.clone();
-        this.display_width = targetState.display_width;
-        this.display_height = targetState.display_height;
-        this.rom_loaded = targetState.rom_loaded;
+        this.displayWidth = targetState.displayWidth;
+        this.displayHeight = targetState.displayHeight;
+        this.romLoaded = targetState.romLoaded;
     }
 }
