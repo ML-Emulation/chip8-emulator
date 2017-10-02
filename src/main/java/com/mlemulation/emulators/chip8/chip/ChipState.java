@@ -3,23 +3,23 @@ package com.mlemulation.emulators.chip8.chip;
 /**
  * This class represents a {@link com.mlemulation.emulators.chip8.chip.Chip} state.
  */
-public class ChipState {
+class ChipState {
 
-    public final byte[] memory;
-    public final byte[] v_reg;
-    public final long I;
-    public final long pc;
-    public final long opcode;
-    public final long[] stack;
-    public final long stack_ptr;
-    public final long delay_timer;
-    public final long sound_timer;
-    public final byte[] keys;
-    public final byte[] display;
-    public final long display_width;
-    public final long display_height;
+    final byte[] memory;
+    final byte[] v_reg;
+    final long I;
+    final long pc;
+    final long opcode;
+    final long[] stack;
+    final long stack_ptr;
+    final long delay_timer;
+    final long sound_timer;
+    final byte[] keys;
+    final byte[] display;
+    final long display_width;
+    final long display_height;
 
-    public ChipState(Chip chip) {
+    ChipState(Chip chip) {
         this.memory = chip.memory.clone();
         this.v_reg = chip.v_reg.clone();
         this.I = chip.I;
