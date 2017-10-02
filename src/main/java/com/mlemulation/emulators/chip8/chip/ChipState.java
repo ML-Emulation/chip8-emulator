@@ -5,19 +5,19 @@ package com.mlemulation.emulators.chip8.chip;
  */
 public class ChipState {
 
-    private final byte[] memory;
-    private final byte[] v_reg;
-    private final long I;
-    private final long pc;
-    private final long opcode;
-    private final long[] stack;
-    private final long stack_ptr;
-    private final long delay_timer;
-    private final long sound_timer;
-    private final byte[] keys;
-    private final byte[] display;
-    private final long display_width;
-    private final long display_height;
+    public final byte[] memory;
+    public final byte[] v_reg;
+    public final long I;
+    public final long pc;
+    public final long opcode;
+    public final long[] stack;
+    public final long stack_ptr;
+    public final long delay_timer;
+    public final long sound_timer;
+    public final byte[] keys;
+    public final byte[] display;
+    public final long display_width;
+    public final long display_height;
 
     public ChipState(Chip chip) {
         this.memory = chip.memory.clone();
