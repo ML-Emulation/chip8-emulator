@@ -45,4 +45,24 @@ public class Chip {
         }
         return instance;
     }
+
+    public ChipState getState() {
+        return new ChipState(this);
+    }
+
+    public void setState(ChipState targetState) {
+        this.memory = targetState.memory.clone();
+        this.v_reg = targetState.v_reg.clone();
+        this.I = targetState.I;
+        this.pc = targetState.pc;
+        this.opcode = targetState.opcode;
+        this.stack = targetState.stack.clone();
+        this.stack_ptr = targetState.stack_ptr;
+        this.delay_timer = targetState.delay_timer;
+        this.sound_timer = targetState.sound_timer;
+        this.keys = targetState.keys.clone();
+        this.display = targetState.display.clone();
+        this.display_width = targetState.display_width;
+        this.display_height = targetState.display_height;
+    }
 }
