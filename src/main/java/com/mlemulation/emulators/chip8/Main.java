@@ -1,3 +1,5 @@
+package com.mlemulation.emulators.chip8;
+
 /**
  * This is a really simple implementation of a Chip8 emulator.
  *
