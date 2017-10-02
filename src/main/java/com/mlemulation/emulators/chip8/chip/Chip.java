@@ -29,7 +29,9 @@ public class Chip {
     public long displayHeight;
     public boolean romLoaded;
 
-    private Chip() {
+    private Chip() {}
+
+    private void reset() {
         this.memory = new byte[Specs.MEMORY];
         this.vReg = new byte[Specs.V_REGISTERS];
         this.I = 0L;
@@ -56,6 +58,7 @@ public class Chip {
     public void loadRom(String romPathString) {
         Path romPath = Paths.get(romPathString);
         byte[] fileByteArray;
+        this.reset();
         try {
             fileByteArray = Files.readAllBytes(romPath);
             if (fileByteArray.length <= this.memory.length) {
