@@ -1,5 +1,8 @@
 package com.mlemulation.emulators.chip8.chip;
 
+/**
+ * This class represents a {@link com.mlemulation.emulators.chip8.chip.Chip} state.
+ */
 public class ChipState {
 
     private final byte[] memory;
