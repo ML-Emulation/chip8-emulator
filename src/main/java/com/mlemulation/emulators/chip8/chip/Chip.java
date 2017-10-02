@@ -97,4 +97,10 @@ public class Chip {
         this.isRunning = targetState.isRunning;
         this.isRomLoaded = targetState.isRomLoaded;
     }
+
+    public void execute() {
+        this.opcode = (this.memory[this.pc] << 8) | this.memory[this.pc+1];
+
+        // TODO interpret/transalte OPCODE
+    }
 }
