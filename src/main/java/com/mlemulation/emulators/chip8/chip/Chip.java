@@ -8,46 +8,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * This singleton class represents the current Chip's state.
+ * This singleton class represents the current Chip's this.state.
  */
 public class Chip {
 
     private static Chip instance = null;
 
-    public byte[] memory;
-    public byte[] vReg;
-    public int I;
-    public int pc;
-    public int opcode;
-    public int[] stack;
-    public int stackPtr;
-    public int delayTimer;
-    public int soundTimer;
-    public byte[] keys;
-    public byte[] display;
-    public int displayWidth;
-    public int displayHeight;
-    public boolean isRunning;
-    public boolean isRomLoaded;
+    public ChipState state;
 
-    private Chip() {}
-
-    private void reset() {
-        this.memory = new byte[Specs.MEMORY];
-        this.vReg = new byte[Specs.V_REGISTERS];
-        this.I = 0;
-        this.pc = 0;
-        this.opcode = 0;
-        this.stack = new int[Specs.STACK_SIZE];
-        this.stackPtr = 0;
-        this.delayTimer = 0;
-        this.soundTimer = 0;
-        this.keys = new byte[Specs.KEYS];
-        this.display = new byte[Specs.DISPLAY_SIZE];
-        this.displayWidth = Specs.DISPLAY_WIDTH;
-        this.displayHeight = Specs.DISPLAY_HEIGHT;
-        this.isRunning = false;
-        this.isRomLoaded = false;
+    private Chip() {
+        this.state = new ChipState();
     }
 
     public static Chip getInstance() {
@@ -60,13 +30,13 @@ public class Chip {
     public void loadRom(String romPathString) {
         Path romPath = Paths.get(romPathString);
         byte[] fileByteArray;
-        this.reset();
+        this.state.reset();
         try {
             fileByteArray = Files.readAllBytes(romPath);
-            if (fileByteArray.length <= this.memory.length) {
-                System.arraycopy(fileByteArray, 0, this.memory, 0, fileByteArray.length);
-                this.isRomLoaded = true;
-                this.isRunning = true;
+            if (fileByteArray.length <= Specs.MEMORY) {
+                System.arraycopy(fileByteArray, 0, this.state.memory, 0, fileByteArray.length);
+                this.state.isRomLoaded = true;
+                this.state.isRunning = true;
             } else {
                 System.out.println("ROM too big to fit in memory...");
             }
@@ -77,29 +47,15 @@ public class Chip {
     }
 
     public ChipState getState() {
-        return new ChipState(this);
+        return this.state.copy();
     }
 
     public void setState(ChipState targetState) {
-        this.memory = targetState.memory.clone();
-        this.vReg = targetState.vReg.clone();
-        this.I = targetState.I;
-        this.pc = targetState.pc;
-        this.opcode = targetState.opcode;
-        this.stack = targetState.stack.clone();
-        this.stackPtr = targetState.stackPtr;
-        this.delayTimer = targetState.delayTimer;
-        this.soundTimer = targetState.soundTimer;
-        this.keys = targetState.keys.clone();
-        this.display = targetState.display.clone();
-        this.displayWidth = targetState.displayWidth;
-        this.displayHeight = targetState.displayHeight;
-        this.isRunning = targetState.isRunning;
-        this.isRomLoaded = targetState.isRomLoaded;
+        this.this.state = targetState.copy();
     }
 
     public void execute() {
-        this.opcode = (this.memory[this.pc] << 8) | this.memory[this.pc+1];
+        this.state.opcode = (this.state.memory[this.state.pc] << 8) | this.state.memory[this.state.pc+1];
 
         // TODO interpret/transalte OPCODE
     }

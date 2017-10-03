@@ -1,41 +1,69 @@
 package com.mlemulation.emulators.chip8.chip;
 
+import com.mlemulation.emulators.chip8.specs.Specs;
+
 /**
  * This class represents a {@link com.mlemulation.emulators.chip8.chip.Chip} state.
  */
 class ChipState {
 
-    final byte[] memory;
-    final byte[] vReg;
-    final int I;
-    final int pc;
-    final int opcode;
-    final int[] stack;
-    final int stackPtr;
-    final int delayTimer;
-    final int soundTimer;
-    final byte[] keys;
-    final byte[] display;
-    final int displayWidth;
-    final int displayHeight;
-    final boolean isRunning;
-    final boolean isRomLoaded;
+    byte[] memory;
+    byte[] vReg;
+    int I;
+    int pc;
+    int opcode;
+    int[] stack;
+    int stackPtr;
+    int delayTimer;
+    int soundTimer;
+    byte[] keys;
+    byte[] display;
+    int displayWidth;
+    int displayHeight;
+    boolean isRunning;
+    boolean isRomLoaded;
 
-    ChipState(Chip chip) {
-        this.memory = chip.memory.clone();
-        this.vReg = chip.vReg.clone();
-        this.I = chip.I;
-        this.pc = chip.pc;
-        this.opcode = chip.opcode;
-        this.stack = chip.stack.clone();
-        this.stackPtr = chip.stackPtr;
-        this.delayTimer = chip.delayTimer;
-        this.soundTimer = chip.soundTimer;
-        this.keys = chip.keys.clone();
-        this.display = chip.display.clone();
-        this.displayWidth = chip.displayWidth;
-        this.displayHeight = chip.displayHeight;
-        this.isRunning = chip.isRunning;
-        this.isRomLoaded = chip.isRomLoaded;
+    ChipState() {
+        this.reset();
+    }
+
+    void reset() {
+        this.memory = new byte[Specs.MEMORY];
+        this.vReg = new byte[Specs.V_REGISTERS];
+        this.I = 0;
+        this.pc = 0;
+        this.opcode = 0;
+        this.stack = new int[Specs.STACK_SIZE];
+        this.stackPtr = 0;
+        this.delayTimer = 0;
+        this.soundTimer = 0;
+        this.keys = new byte[Specs.KEYS];
+        this.display = new byte[Specs.DISPLAY_SIZE];
+        this.displayWidth = Specs.DISPLAY_WIDTH;
+        this.displayHeight = Specs.DISPLAY_HEIGHT;
+        this.isRunning = false;
+        this.isRomLoaded = false;
+    }
+
+    ChipState copy() {
+        ChipState targetState = new ChipState();
+
+        targetState.memory = this.memory.clone();
+        targetState.vReg = this.vReg.clone();
+        targetState.I = this.I;
+        targetState.pc = this.pc;
+        targetState.opcode = this.opcode;
+        targetState.stack = this.stack.clone();
+        targetState.stackPtr = this.stackPtr;
+        targetState.delayTimer = this.delayTimer;
+        targetState.soundTimer = this.soundTimer;
+        targetState.keys = this.keys.clone();
+        targetState.display = this.display.clone();
+        targetState.displayWidth = this.displayWidth;
+        targetState.displayHeight = this.displayHeight;
+        targetState.isRunning = this.isRunning;
+        targetState.isRomLoaded = this.isRomLoaded;
+
+        return targetState;
     }
 }
