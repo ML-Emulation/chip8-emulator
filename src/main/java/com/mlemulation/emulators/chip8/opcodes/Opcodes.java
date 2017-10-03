@@ -52,4 +52,9 @@ public enum Opcodes {
         this.bitFilter = bitFilter;
         this.description = description;
     }
+
+    // TODO fill in this method
+    public static Opcodes FromInt(int opcode) {
+        return null;
+    }
 }
