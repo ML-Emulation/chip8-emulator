@@ -51,7 +51,7 @@ public class Chip {
     }
 
     public void setState(ChipState targetState) {
-        this.this.state = targetState.copy();
+        this.state = targetState.copy();
     }
 
     public void execute() {
