@@ -52,7 +52,7 @@ public enum Opcodes {
         this.bitFilter = bitFilter;
         this.description = description;
     }
-    
+
     public static Opcodes FromInt(int code) {
         for (Opcodes opcode : Opcodes.values()) {
             if ((code & opcode.bitFilter) == opcode.value) return opcode;

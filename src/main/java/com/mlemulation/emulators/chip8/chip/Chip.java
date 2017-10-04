@@ -1,5 +1,6 @@
 package com.mlemulation.emulators.chip8.chip;
 
+import com.mlemulation.emulators.chip8.opcodes.Opcodes;
 import com.mlemulation.emulators.chip8.specs.Specs;
 
 import java.io.IOException;
@@ -56,7 +57,12 @@ public class Chip {
 
     public void execute() {
         this.state.opcode = (this.state.memory[this.state.pc] << 8) | this.state.memory[this.state.pc+1];
+        Opcodes opcode = Opcodes.FromInt(this.state.opcode);
 
-        // TODO interpret/transalte OPCODE
+        if (opcode != null) {
+            System.out.print(String.format("Supported code found: %d (%s)", this.state.opcode, opcode.label));
+        } else {
+            System.out.println(String.format("Unsupported code: %s", Integer.toHexString(this.state.opcode)));
+        }
     }
 }
