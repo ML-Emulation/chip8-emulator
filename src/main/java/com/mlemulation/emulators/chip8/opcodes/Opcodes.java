@@ -28,7 +28,7 @@ public enum Opcodes {
     xANNN("0xANNN", 0xA000, 0xF000, "Sets I to NNN"),
     xBNNN("0xBNNN", 0xB000, 0xF000, "Jumps to the address NNN plus V0"),
     xCXNN("0xCXNN", 0xC000, 0xF000, "Sets VX to the result of 'random AND NN'"),
-    xDXYN("0xDXYN", 0xD000, 0xF000, "TODO"),    // TODO fill in the description
+    xDXYN("0xDXYN", 0xD000, 0xF000, "Draws a sprite at coordinate (VX, VY) that has a width of 8 pixels and a height of N pixels"),    // TODO fill in the description
     xEX9E("0xEX9E", 0xE09E, 0xF0FF, "Skips the next instruction if key stored in VX is pressed"),
     xEXA1("0xEXA1", 0xE0A1, 0xF0FF, "Skips the next instruction if key stored in VX isn't pressed"),
     xFX07("0xFX07", 0xF007, 0xF0FF, "Sets VX to the value of delay timer"),
@@ -36,8 +36,8 @@ public enum Opcodes {
     xFX15("0xFX15", 0xF015, 0xF0FF, "Sets the delay timer to the value of VX"),
     xFX18("0xFX18", 0xF018, 0xF0FF, "Sets the sound timer to the value of VX"),
     xFX1E("0xFX1E", 0xF01E, 0xF0FF, "Adds VX to I"),
-    xFX29("0xFX29", 0xF029, 0xF0FF, "TODO"),    // TODO fill in the description
-    xFX33("0xFX33", 0xF033, 0xF0FF, "TODO"),    // TODO fill in the description
+    xFX29("0xFX29", 0xF029, 0xF0FF, "Sets I to the location of the sprite for the character in VX"),
+    xFX33("0xFX33", 0xF033, 0xF0FF, "Stores the binary-coded decimal representation of VX, with the most significant of three digits at the address in I, the middle digit at I plus 1, and the least significant digit at I plus 2"),
     xFX55("0xFX55", 0xF055, 0xF0FF, "Writes [V0, VX] to memory, starting at address I"),
     xFX65("0xFX65", 0xF065, 0xF0FF, "Fills [V0, VX] with values from memory, starting at address I");
 
