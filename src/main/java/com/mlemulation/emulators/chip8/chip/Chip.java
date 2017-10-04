@@ -60,9 +60,9 @@ public class Chip {
         Opcodes opcode = Opcodes.FromInt(this.state.opcode);
 
         if (opcode != null) {
-            System.out.print(String.format("Supported code found: %04X (%s)", this.state.opcode, opcode.label));
+            System.out.print(String.format("Supported code found: 0x%04X (%s)", this.state.opcode, opcode.label));
         } else {
-            System.out.println(String.format("Unsupported code: %04X", this.state.opcode));
+            System.out.println(String.format("Unsupported code: 0x%04X", this.state.opcode));
         }
     }
 }
