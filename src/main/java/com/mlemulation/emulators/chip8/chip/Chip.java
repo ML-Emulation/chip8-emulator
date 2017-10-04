@@ -65,6 +65,7 @@ public class Chip {
             return;
         }
 
+        int temp;
         switch(opcodeRepresentation) {
             case x0NNN:
                 // TODO implement this behaviour
@@ -130,10 +131,29 @@ public class Chip {
                 this.state.pc += 2;
                 break;
             case x8XY4:
+                temp = (int)(this.state.vReg[(this.state.opcode & 0x0F00) >> 8]) + (int)(this.state.vReg[(this.state.opcode & 0x00F0) >> 4]);
+                if (temp < 256) {
+                    this.state.vReg[0x000F] = 0x0000;
+                } else {
+                    this.state.vReg[0x000F] = 0x0001;
+                }
+                this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = (byte)(temp & 0x000F);
+                this.state.pc += 2;
                 break;
             case x8XY5:
+                temp = (int)(this.state.vReg[(this.state.opcode & 0x0F00) >> 8]) - (int)(this.state.vReg[(this.state.opcode & 0x00F0) >> 4]);
+                if (temp < 0) {
+                    this.state.vReg[0x000F] = 0x0000;
+                } else {
+                    this.state.vReg[0x000F] = 0x0001;
+                }
+                this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = (byte)(temp & 0x000F);
+                this.state.pc += 2;
                 break;
-            case x8XY6:
+            case x8XY6: // TODO fix description of Opcode.x8XY6
+                this.state.vReg[0x000F] = (byte)(this.state.vReg[(this.state.opcode & 0x00F0) >> 4] & 0x0007);
+                this.state.vReg[(this.state.opcode & 0x00F0) >> 4] = (byte)(this.state.vReg[(this.state.opcode & 0x00F0) >> 4] >> 1);
+                this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = this.state.vReg[(this.state.opcode & 0x00F0) >> 4];
                 break;
             case x8XY7:
                 break;
