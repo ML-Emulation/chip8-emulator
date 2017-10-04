@@ -1,5 +1,7 @@
 package com.mlemulation.emulators.chip8;
 
+import com.mlemulation.emulators.chip8.chip.Chip;
+
 /**
  * This is a really simple implementation of a Chip8 emulator.
  *
@@ -14,6 +16,8 @@ package com.mlemulation.emulators.chip8;
 */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Chip chip = Chip.getInstance();
+
+        chip.execute();
     }
 }
