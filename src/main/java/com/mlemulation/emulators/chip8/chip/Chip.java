@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This singleton class represents the current Chip's this.state.
@@ -156,16 +157,37 @@ public class Chip {
                 this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = this.state.vReg[(this.state.opcode & 0x00F0) >> 4];
                 break;
             case x8XY7:
+                temp = (int)(this.state.vReg[(this.state.opcode & 0x00F0) >> 4]) - (int)(this.state.vReg[(this.state.opcode & 0x0F00) >> 8]);
+                if (temp < 0) {
+                    this.state.vReg[0x000F] = 0x0000;
+                } else {
+                    this.state.vReg[0x000F] = 0x0001;
+                }
+                this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = (byte)(temp & 0x000F);
+                this.state.pc += 2;
                 break;
             case x8XYE:
+                this.state.vReg[0x000F] = (byte)(this.state.vReg[(this.state.opcode & 0x0F00) >> 8] >> 7);
+                this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = (byte)(this.state.vReg[(this.state.opcode & 0x0F00) >> 8] << 1);
+                this.state.pc += 2;
                 break;
             case x9XY0:
+                if (this.state.vReg[(this.state.opcode & 0x0F00) >> 8] != this.state.vReg[(this.state.opcode & 0x00F0) >> 4]) {
+                    this.state.pc += 4;
+                } else {
+                    this.state.pc += 2;
+                }
                 break;
             case xANNN:
+                this.state.I = this.state.opcode & 0x0FFF;
+                this.state.pc += 2;
                 break;
             case xBNNN:
+                this.state.pc = (this.state.opcode & 0x0FFF) + this.state.vReg[0];
                 break;
             case xCXNN:
+                this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = (byte)(ThreadLocalRandom.current().nextInt(0x00, 0xFF) & (this.state.opcode & 0x00FF));
+                this.state.pc += 2;
                 break;
             case xDXYN:
                 break;
