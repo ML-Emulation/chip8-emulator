@@ -190,28 +190,84 @@ public class Chip {
                 this.state.pc += 2;
                 break;
             case xDXYN:
+                byte vx = this.state.vReg[(this.state.opcode & 0x0F00) >> 8];
+                byte vy = this.state.vReg[(this.state.opcode & 0x00F0) >> 4];
+                int width = 8;
+                int height = this.state.opcode & 0x000F;
+
+                this.state.vReg[0x000F] = 0x0000;
+                for (int y = 0; y < height; y++) {
+                    byte pixelValue = this.state.memory[this.state.I + y];
+                    for (int x = 0; x < width; x++) {
+                        if ((pixelValue & (0x0080 >> x)) != 0) {
+                            if (this.state.display[x + vx + (y + vy) * 64] != 0) {
+                                this.state.vReg[0x000F] = 1;
+                            }
+                            this.state.display[x + vx + (y + vy) * 64] ^= 1;
+                        }
+                    }
+                }
+                this.state.pc += 2;
                 break;
             case xEX9E:
+                if (this.state.keys[(this.state.opcode & 0x0F00) >> 8]) {
+                    this.state.pc += 4;
+                } else {
+                    this.state.pc += 2;
+                }
                 break;
             case xEXA1:
+                if (!this.state.keys[(this.state.opcode & 0x00F0) >> 4]) {
+                    this.state.pc += 4;
+                } else {
+                    this.state.pc += 2;
+                }
                 break;
             case xFX0A:
+                for (int i = 0; i < this.state.keys.length; i++) {
+                    if (this.state.keys[i]) {
+                        this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = (byte) i;
+                        this.state.pc += 2;
+                        break;
+                    }
+                }
                 break;
             case xFX1E:
+                this.state.I += this.state.vReg[(this.state.opcode & 0x0F00) >> 8];
+                this.state.pc += 2;
                 break;
             case xFX07:
+                this.state.vReg[(this.state.opcode & 0x0F00) >> 8] = (byte) this.state.delayTimer;
+                this.state.pc += 2;
                 break;
             case xFX15:
+                this.state.delayTimer = this.state.vReg[(this.state.opcode & 0x0F00) >> 8];
+                this.state.pc += 2;
                 break;
             case xFX18:
+                this.state.soundTimer = this.state.vReg[(this.state.opcode & 0x0F00) >> 8];
+                this.state.pc += 2;
                 break;
             case xFX29:
+                this.state.I = this.state.vReg[(this.state.opcode & 0x0F00) >> 8] * 5;
+                this.state.pc += 2;
                 break;
             case xFX33:
+                this.state.memory[this.state.I] = (byte) (this.state.vReg[(this.state.opcode & 0x0F00) >> 8] / 100);
+                this.state.memory[this.state.I + 1] = (byte) ((this.state.vReg[(this.state.opcode & 0x0F00) >> 8] / 10) % 10);
+                this.state.memory[this.state.I + 2] = (byte) (this.state.vReg[(this.state.opcode & 0x0F00) >> 8] % 10);
+                this.state.pc += 2;
                 break;
             case xFX55:
+                for (int i = 0; i <= (this.state.opcode & 0x0F00) >> 8; i++) {
+                    this.state.memory[this.state.I + i] = this.state.vReg[i];
+                }
+                this.state.pc += 2;
                 break;
             case xFX65:
+                for (int i = 0; i <= (this.state.opcode & 0x0F00) >> 8; i++) {
+                    this.state.vReg[i] = this.state.memory[this.state.I + i];
+                }
                 break;
             default:
                 System.out.println(String.format("Unsupported code: 0x%04X\n", this.state.opcode));
