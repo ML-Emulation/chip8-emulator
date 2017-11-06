@@ -16,7 +16,7 @@ class ChipState {
     int stackPtr;
     int delayTimer;
     int soundTimer;
-    byte[] keys;
+    boolean[] keys;
     byte[] display;
     int displayWidth;
     int displayHeight;
@@ -37,7 +37,7 @@ class ChipState {
         this.stackPtr = 0;
         this.delayTimer = 0;
         this.soundTimer = 0;
-        this.keys = new byte[Specs.KEYS];
+        this.keys = new boolean[Specs.KEYS];
         this.display = new byte[Specs.DISPLAY_SIZE];
         this.displayWidth = Specs.DISPLAY_WIDTH;
         this.displayHeight = Specs.DISPLAY_HEIGHT;
