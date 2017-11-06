@@ -17,7 +17,7 @@ public class Chip {
 
     private static Chip instance = null;
 
-    public ChipState state;
+    private ChipState state;
 
     private Chip() {
         this.state = new ChipState();
